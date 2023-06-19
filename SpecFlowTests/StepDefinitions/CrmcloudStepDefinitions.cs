@@ -1,4 +1,6 @@
 using Core;
+using Core.Extensions;
+using Core.Generators;
 using PageObject.Pages;
 
 namespace SpecFlowTests.StepDefinitions
@@ -18,32 +20,44 @@ namespace SpecFlowTests.StepDefinitions
         [Given(@"navigate to ""([^""]*)"" => ""([^""]*)""")]
         public void GivenNavigateTo(string mainTab, string nestedTab)
         {
-            Thread.Sleep(10000);
-
             var homePage = new HomePage();
             homePage.Header.NavigationMenu(mainTab).Click();
             homePage.Header.SecondItem(nestedTab).Click();
-            Thread.Sleep(10000);
         }
 
 
         [When(@"create new contact with categories:")]
         public void WhenCreateNewContactWithCategories(Table table)
         {
-            throw new PendingStepException();
+
+            var rows = table.Rows;
+            var contactPage = new ContactPage();
+            var contact = new ContactGenerator().Generate();
+            contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
+            contactPage.CreateContact().WaitUntil(el => !contactPage.LoadingPopup.Displayed).Click();
+            contactPage.FirstName.SendKeys(contact.FirstName);
+            contactPage.LastName.SendKeys(contact.LastName);
+            foreach (var row in rows)
+            {
+                contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
+                contactPage.Category.ChooseOption(row.Values.FirstOrDefault());
+            }
+
+            contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
+            contactPage.BusinessRole.ChooseOption(contact.BusinessRole.ToString());
+            contactPage.Save.Click();
         }
 
 
         [When(@"open created contact")]
         public void WhenOpenCreatedContact()
         {
-            throw new PendingStepException();
+
         }
 
         [Then(@"check that its data matches")]
         public void ThenCheckThatItsDataMatches()
         {
-            throw new PendingStepException();
         }
 
         [Given(@"navigate to “Reports & Settings”")]

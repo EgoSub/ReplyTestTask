@@ -1,8 +1,8 @@
 ﻿Feature: Crmcloud
 
-@apiLogin
 Scenario: Create contact
-	Given navigate to "Sales & Marketing" => "Contacts"
+	Given login
+	And navigate to "Sales & Marketing" => "Contacts"
 	When create new contact with categories:
 	| Categories |
 	| Customers  |

@@ -13,7 +13,7 @@ namespace PageObject.Pages.PageElements
         }
 
         public IWebElement NavigationMenu(string item) => _element.FindElement(By.XPath($".//a/div[contains(text(), '{item}')]"));
-        public IWebElement SecondMenuTab => WaitUntil.Until(dr => dr.FindElement(By.ClassName("tab-nav-sub")));
+        public IWebElement SecondMenuTab => Wait.Until(dr => dr.FindElement(By.ClassName("tab-nav-sub")));
         public IWebElement SecondItem(string item) => SecondMenuTab.FindElement(By.XPath($"//a[@class = 'menu-tab-sub-list' and contains(text(), '{item}')]"));
 
 

@@ -47,7 +47,7 @@
         public string AppointmentDescription { get; set; }
         public string Department { get; set; }
         public string LeadSource { get; set; }
-        public string BusinessRole { get; set; }
+        public BusinessRole BusinessRole { get; set; }
         public string CampaignId { get; set; }
         public string Campaign { get; set; }
         public string ReportsToId { get; set; }
@@ -73,5 +73,14 @@
         public string AltAddressPostalCode { get; set; }
         public string Description { get; set; }
         public List<string> SocialAccounts { get; set; }
+    }
+
+    public enum BusinessRole
+    {
+        CEO,
+        MIS,
+        CFO,
+        Sales,
+        Admin
     }
 }

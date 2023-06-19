@@ -8,11 +8,12 @@ namespace PageObject.Pages
 {
     public class BasePage
     {
+        public IWebElement LoadingPopup => Driver.FindElement(By.Id("ajaxStatusDiv"));
         public IWebDriver Driver => ThreadDriverManager.GetWebDriver();
-        public WebDriverWait WaitUntil => new(Driver, TimeSpan.FromSeconds(ConfigManager.Wait));
+        public WebDriverWait Wait => new(Driver, TimeSpan.FromSeconds(ConfigManager.Wait));
         public Actions Action => new(Driver);
         public void RefreshPage() => Driver.Navigate().Refresh();
-        public virtual void GoTo() => Driver.Navigate().GoToUrl(ConfigManager.BaseUrl);
+        public virtual void ReOpen() => Driver.Navigate().GoToUrl(ConfigManager.BaseUrl);
 
     }
 }
