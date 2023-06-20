@@ -1,9 +1,10 @@
 ﻿using OpenQA.Selenium;
 using PageObject.CustomElements;
+using PageObject.Pages.PageElements;
 
 namespace PageObject.Pages
 {
-    public class ContactPage : HomePage
+    public class ContactsPage : HomePage
     {
         public IWebElement MainTitle => Driver.FindElement(By.Id("main-title"));
         public IWebElement CreateContact()
@@ -21,5 +22,6 @@ namespace PageObject.Pages
         public IWebElement CategoryOptions(string option) => Driver.FindElement(By.Id("DetailFormcategories-input-search-list")).FindElement(By.LinkText(option));
         public Selector BusinessRole => new(FindElement(By.Id("DetailFormbusiness_role-input")));
         public IWebElement Save => Driver.FindElement(By.Id("DetailForm_save"));
+        public ContactDetailForm ContactDetailForm => new(FindElement(By.XPath("//form[@id = 'DetailForm']")));
     }
 }

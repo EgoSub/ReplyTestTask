@@ -2,6 +2,7 @@ using Core;
 using Core.Extensions;
 using Core.Generators;
 using Core.Models;
+using FluentAssertions.Execution;
 using OpenQA.Selenium;
 using PageObject.Pages;
 
@@ -39,16 +40,18 @@ namespace SpecFlowTests.StepDefinitions
         public void WhenCreateNewContactWithCategories(Table table)
         {
             var rows = table.Rows;
-            var contactPage = new ContactPage();
+            var contactPage = new ContactsPage();
             var contact = new ContactGenerator().Generate();
-            ScenarioContext.Add("contact", contact);
             contactPage.CreateContact().Click();
             contactPage.FirstName.SendKeys(contact.FirstName);
             contactPage.LastName.SendKeys(contact.LastName);
+            contact.Categories = new();
             foreach (var row in rows)
             {
-                contactPage.Category.ChooseOption(row.Values.FirstOrDefault());
+                contact.Categories.Add(row.Values.First());
+                contactPage.Category.ChooseOption(row.Values.First());
             }
+            ScenarioContext.Add("contact", contact);
             contactPage.BusinessRole.ChooseOption(contact.BusinessRole.ToString());
             contactPage.Save.Click();
         }
@@ -58,7 +61,7 @@ namespace SpecFlowTests.StepDefinitions
         public void WhenOpenCreatedContact()
         {
             var contact = ScenarioContext.Get<Contact>("contact");
-            var contactPage = new ContactPage();
+            var contactPage = new ContactsPage();
             contactPage.Contacts.Click();
             contactPage.Filter.SendKeys($"{contact.FirstName} {contact.LastName}");
             contactPage.Filter.SendKeys(Keys.Enter);
@@ -68,6 +71,17 @@ namespace SpecFlowTests.StepDefinitions
         [Then(@"check that its data matches")]
         public void ThenCheckThatItsDataMatches()
         {
+            var contact = ScenarioContext.Get<Contact>("contact");
+            var contactPage = new ContactsPage();
+            using (new AssertionScope())
+            {
+                contactPage.ContactDetailForm.FullName.Text.Should().Contain($"{contact.FirstName} {contact.LastName}");
+                contactPage.ContactDetailForm.BusinessRole.Text.Should().Be(contact.BusinessRole.ToString());
+                foreach (var cat in contact.Categories)
+                {
+                    contactPage.ContactDetailForm.Categories.Text.Should().Contain(cat);
+                }
+            }
         }
 
         [Given(@"navigate to “Reports & Settings”")]
