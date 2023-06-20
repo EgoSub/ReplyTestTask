@@ -100,7 +100,7 @@ namespace SpecFlowTests.StepDefinitions
         [When(@"select first (.*) items in the table")]
         public void WhenSelectFirstItemsInTheTable(int p0)
         {
-            throw new PendingStepException();
+            false.Should().Be(true);
         }
 
         [When(@"Make ""([^""]*)"" action")]

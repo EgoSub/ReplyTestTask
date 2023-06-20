@@ -2,6 +2,8 @@
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Configuration;
+using Core;
+using System.Runtime.InteropServices;
 
 namespace SpecFlowBDDAutomationFramework.Utility
 {
@@ -10,11 +12,7 @@ namespace SpecFlowBDDAutomationFramework.Utility
         public static ExtentReports _extentReports;
         public static ExtentTest _feature;
         private static ExtentTest _scenario;
-
-        private static string dir = AppDomain.CurrentDomain.BaseDirectory;
-        private static string testResultPath = dir.Replace("bin\\Debug\\net6.0", "TestResults");
-
-
+        private static string testResultPath = $@"{Directory.GetCurrentDirectory()}..\..\..\..\TestResults\";
         public static void ExtentReportInit()
         {
             var htmlReporter = new ExtentHtmlReporter(testResultPath);
@@ -23,6 +21,8 @@ namespace SpecFlowBDDAutomationFramework.Utility
             htmlReporter.Config.Theme = Theme.Dark;
             htmlReporter.Start();
             _extentReports = new ExtentReports();
+            _extentReports.AddSystemInfo("OS", RuntimeInformation.OSDescription);
+            _extentReports.AddSystemInfo("Browser", ConfigManager.Browser.ToString());
             _extentReports.AttachReporter(htmlReporter);
         }
         public static void AddScenario(string title)
@@ -37,6 +37,7 @@ namespace SpecFlowBDDAutomationFramework.Utility
                 "Given" => typeof(Given),
                 "When" => typeof(When),
                 "Then" => typeof(Then),
+                "And" => typeof(And),
                 _ => throw new NotImplementedException(),
             };
             var gK = new GherkinKeyword(keyword.Name);
@@ -46,7 +47,7 @@ namespace SpecFlowBDDAutomationFramework.Utility
             }
             else
             {
-                _scenario.CreateNode(gK, stepName).Fail(ex);
+                _scenario.CreateNode(gK, stepName).Fail(ex.Message).Fail(ex);
             }
         }
 
@@ -59,6 +60,5 @@ namespace SpecFlowBDDAutomationFramework.Utility
         {
             _extentReports.Flush();
         }
-
     }
 }
