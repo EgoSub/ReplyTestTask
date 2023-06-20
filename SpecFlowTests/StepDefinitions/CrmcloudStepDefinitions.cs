@@ -29,7 +29,6 @@ namespace SpecFlowTests.StepDefinitions
         [When(@"create new contact with categories:")]
         public void WhenCreateNewContactWithCategories(Table table)
         {
-
             var rows = table.Rows;
             var contactPage = new ContactPage();
             var contact = new ContactGenerator().Generate();
@@ -42,7 +41,6 @@ namespace SpecFlowTests.StepDefinitions
                 contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
                 contactPage.Category.ChooseOption(row.Values.FirstOrDefault());
             }
-
             contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
             contactPage.BusinessRole.ChooseOption(contact.BusinessRole.ToString());
             contactPage.Save.Click();

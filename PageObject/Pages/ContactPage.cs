@@ -11,7 +11,6 @@ namespace PageObject.Pages
             Wait.Until(x => MainTitle.Displayed);
         }
         public IWebElement MainTitle => Driver.FindElement(By.Id("main-title"));
-
         public IWebElement CreateContact()
         {
             var wait = Wait;
@@ -19,7 +18,6 @@ namespace PageObject.Pages
             wait.Until(dr => Driver.FindElement(By.XPath("//div[@class = 'card-header panel-subheader listview-header']//button[@name = 'SubPanel_create']")).Enabled);
             return Driver.FindElement(By.XPath("//div[@class = 'card-header panel-subheader listview-header']//button[@name = 'SubPanel_create']"));
         }
-
         public IWebElement FirstName => Driver.FindElement(By.Id("DetailFormfirst_name-input"));
         public IWebElement LastName => Driver.FindElement(By.Id("DetailFormlast_name-input"));
         public Selector Category => new(Driver.FindElement(By.Id("DetailFormcategories-input")));

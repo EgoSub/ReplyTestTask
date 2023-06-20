@@ -11,7 +11,5 @@ namespace Core.Generators
             RuleFor(o => o.LastName, f => f.Name.LastName());
             RuleFor(o => o.BusinessRole, f => f.PickRandom<BusinessRole>());
         }
-
-        public static Contact Instance => new Faker<Contact>().Generate();
     }
 }

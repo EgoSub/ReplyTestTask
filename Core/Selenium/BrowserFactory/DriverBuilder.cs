@@ -9,7 +9,6 @@ using WebDriverManager.DriverConfigs.Impl;
 
 public static class DriverBuilder
 {
-
     public static IWebDriver GetDriver()
     {
         IWebDriver driver;

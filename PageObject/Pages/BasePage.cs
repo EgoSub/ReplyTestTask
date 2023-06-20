@@ -14,6 +14,5 @@ namespace PageObject.Pages
         public Actions Action => new(Driver);
         public void RefreshPage() => Driver.Navigate().Refresh();
         public virtual void ReOpen() => Driver.Navigate().GoToUrl(ConfigManager.BaseUrl);
-
     }
 }
