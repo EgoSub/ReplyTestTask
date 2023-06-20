@@ -2,13 +2,10 @@
 
 namespace PageObject.CustomElements
 {
-    public class Contact
+    public class Contact : CustomElement
     {
-        private IWebElement element;
-
-        public Contact(IWebElement element)
+        public Contact(IWebElement element) : base(element)
         {
-            this.element = element;
         }
 
         public IWebElement Name => element.FindElement(By.ClassName("listViewNameLink"));

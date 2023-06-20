@@ -1,4 +1,4 @@
-﻿Feature: Crmcloud
+﻿Feature: CrmCloud
 
 Scenario: Create contact
 	Given login

@@ -13,6 +13,7 @@ namespace PageObject.Pages
             Wait.Until(dr => Driver.FindElement(By.XPath("//div[@class = 'card-header panel-subheader listview-header']//button[@name = 'SubPanel_create']")).Enabled);
             return FindElement(By.XPath("//div[@class = 'card-header panel-subheader listview-header']//button[@name = 'SubPanel_create']"));
         }
+
         public IWebElement Filter => FindElement(By.Id("filter_text"));
         public IWebElement Contacts => FindElement(By.XPath("//div[@id = 'left-sidebar']//div[contains(@class, 'module-Contacts')]"));
         public List<Contact> ContactsList => FindElements(By.XPath("//table[@class = 'listView']//tbody/tr")).Select(el => new Contact(el)).ToList();

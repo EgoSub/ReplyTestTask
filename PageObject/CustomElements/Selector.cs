@@ -5,12 +5,10 @@ using OpenQA.Selenium.Interactions;
 
 namespace PageObject.CustomElements
 {
-    public class Selector
+    public class Selector : CustomElement
     {
-        private IWebElement element;
-        public Selector(IWebElement ddElement)
+        public Selector(IWebElement element) : base(element)
         {
-            element = ddElement;
         }
 
         public void ChooseOption(string option)

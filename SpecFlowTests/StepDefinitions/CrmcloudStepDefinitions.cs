@@ -1,9 +1,9 @@
 using Core;
 using Core.Extensions;
 using Core.Generators;
-using Core.Models;
 using FluentAssertions.Execution;
 using OpenQA.Selenium;
+using PageObject.CustomElements;
 using PageObject.Pages;
 
 namespace SpecFlowTests.StepDefinitions
@@ -32,6 +32,7 @@ namespace SpecFlowTests.StepDefinitions
         {
             var homePage = new HomePage();
             homePage.Header.NavigationMenu(mainTab).Click();
+            homePage.LoadingPopup.WaitUntil(el => !el.Displayed);
             homePage.Header.SecondItem(nestedTab).ClickWithJs();
         }
 
@@ -60,7 +61,7 @@ namespace SpecFlowTests.StepDefinitions
         [When(@"open created contact")]
         public void WhenOpenCreatedContact()
         {
-            var contact = ScenarioContext.Get<Contact>("contact");
+            var contact = ScenarioContext.Get<Core.Models.Contact>("contact");
             var contactPage = new ContactsPage();
             contactPage.Contacts.Click();
             contactPage.Filter.SendKeys($"{contact.FirstName} {contact.LastName}");
@@ -71,7 +72,7 @@ namespace SpecFlowTests.StepDefinitions
         [Then(@"check that its data matches")]
         public void ThenCheckThatItsDataMatches()
         {
-            var contact = ScenarioContext.Get<Contact>("contact");
+            var contact = ScenarioContext.Get<Core.Models.Contact>("contact");
             var contactPage = new ContactsPage();
             using (new AssertionScope())
             {
@@ -84,35 +85,35 @@ namespace SpecFlowTests.StepDefinitions
             }
         }
 
-        [Given(@"navigate to “Reports & Settings”")]
-        public void GivenNavigateToReportsSettings()
-        {
-            throw new PendingStepException();
-        }
-
-        [Given(@"navigate to “Reports”")]
-        public void GivenNavigateToReports()
-        {
-            throw new PendingStepException();
-        }
-
         [Given(@"find ""([^""]*)"" report")]
         public void GivenFindReport(string reportName)
         {
-            throw new PendingStepException();
+            var reportsPage = new ReportsPage();
+            reportsPage.ReportsList.Filter.SendKeys(reportName);
+            reportsPage.ReportsList.Filter.SendKeys(Keys.Enter);
+            var items = reportsPage.ReportsList.Items;
+            items.FirstOrDefault(el => el.Name.Text.Contains($"{reportName}")).Name.Click();
         }
-
 
         [When(@"Run report")]
         public void WhenRunReport()
         {
-            throw new PendingStepException();
+            var reportsPage = new ReportsPage();
+            reportsPage.RunReport.Click();
         }
+
 
         [Then(@"verify that some results were returned")]
         public void ThenVerifyThatSomeResultsWereReturned()
         {
-            throw new PendingStepException();
+            var reportsPage = new ReportsPage();
+            var itemList = reportsPage.DefaultItemsList<CustomElement>();
+
+            using (new AssertionScope())
+            {
+                itemList.Items.Count.Should().NotBe(0);
+                int.Parse(itemList.SelectedOf.Text).Should().BeGreaterThan(0);
+            }
         }
 
         [Given(@"navigate to “Activity log”")]
