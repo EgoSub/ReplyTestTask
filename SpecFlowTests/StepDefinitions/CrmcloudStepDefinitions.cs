@@ -1,13 +1,22 @@
 using Core;
 using Core.Extensions;
 using Core.Generators;
+using Core.Models;
+using OpenQA.Selenium;
 using PageObject.Pages;
 
 namespace SpecFlowTests.StepDefinitions
 {
     [Binding]
-    public class CrmcloudStepDefinitions
+    public class CrmCloudStepDefinitions
     {
+        public ScenarioContext ScenarioContext { get; }
+
+        public CrmCloudStepDefinitions(ScenarioContext scenarioContext)
+        {
+            ScenarioContext = scenarioContext;
+        }
+
         [Given(@"login")]
         public void GivenLogin()
         {
@@ -22,7 +31,7 @@ namespace SpecFlowTests.StepDefinitions
         {
             var homePage = new HomePage();
             homePage.Header.NavigationMenu(mainTab).Click();
-            homePage.Header.SecondItem(nestedTab).Click();
+            homePage.Header.SecondItem(nestedTab).ClickWithJs();
         }
 
 
@@ -32,16 +41,14 @@ namespace SpecFlowTests.StepDefinitions
             var rows = table.Rows;
             var contactPage = new ContactPage();
             var contact = new ContactGenerator().Generate();
-            contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
-            contactPage.CreateContact().WaitUntil(el => !contactPage.LoadingPopup.Displayed).Click();
+            ScenarioContext.Add("contact", contact);
+            contactPage.CreateContact().Click();
             contactPage.FirstName.SendKeys(contact.FirstName);
             contactPage.LastName.SendKeys(contact.LastName);
             foreach (var row in rows)
             {
-                contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
                 contactPage.Category.ChooseOption(row.Values.FirstOrDefault());
             }
-            contactPage.LoadingPopup.WaitUntil(el => !el.Displayed);
             contactPage.BusinessRole.ChooseOption(contact.BusinessRole.ToString());
             contactPage.Save.Click();
         }
@@ -50,7 +57,12 @@ namespace SpecFlowTests.StepDefinitions
         [When(@"open created contact")]
         public void WhenOpenCreatedContact()
         {
-
+            var contact = ScenarioContext.Get<Contact>("contact");
+            var contactPage = new ContactPage();
+            contactPage.Contacts.Click();
+            contactPage.Filter.SendKeys($"{contact.FirstName} {contact.LastName}");
+            contactPage.Filter.SendKeys(Keys.Enter);
+            contactPage.ContactsList.FirstOrDefault(el => el.Name.Text.Contains($"{contact.FirstName} {contact.LastName}")).Name.Click();
         }
 
         [Then(@"check that its data matches")]

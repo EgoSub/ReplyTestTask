@@ -5,6 +5,6 @@ namespace PageObject.Pages
 {
     public class HomePage : BasePage
     {
-        public Header Header => new(Driver.FindElement(By.ClassName("nav-wrap")));
+        public Header Header => new(FindElement(By.ClassName("nav-wrap")));
     }
 }
