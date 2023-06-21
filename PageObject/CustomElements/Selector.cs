@@ -10,7 +10,6 @@ namespace PageObject.CustomElements
         public Selector(IWebElement element) : base(element)
         {
         }
-
         public void ChooseOption(string option)
         {
             var dr = ThreadDriverManager.GetWebDriver();

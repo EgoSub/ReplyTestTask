@@ -5,7 +5,6 @@ namespace PageObject.Pages.PageElements
     public class ContactDetailForm : BasePage
     {
         readonly IWebElement _element;
-
         public ContactDetailForm(IWebElement element)
         {
             _element = element;

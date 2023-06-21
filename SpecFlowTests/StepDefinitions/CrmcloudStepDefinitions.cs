@@ -37,7 +37,6 @@ namespace SpecFlowTests.StepDefinitions
             homePage.Header.SecondItem(nestedTab).ClickWithJs();
         }
 
-
         [When(@"create new contact with categories:")]
         public void WhenCreateNewContactWithCategories(Table table)
         {
@@ -55,7 +54,6 @@ namespace SpecFlowTests.StepDefinitions
             contactPage.BusinessRole.ChooseOption(contact.BusinessRole.ToString());
             contactPage.Save.Click();
         }
-
 
         [When(@"open created contact")]
         public void WhenOpenCreatedContact()
@@ -100,7 +98,6 @@ namespace SpecFlowTests.StepDefinitions
             var reportsPage = new ReportsPage();
             reportsPage.RunReport.Click();
         }
-
 
         [Then(@"verify that some results were returned")]
         public void ThenVerifyThatSomeResultsWereReturned()

@@ -17,7 +17,6 @@ namespace InVentry.TestAutomation.UI.Core.Selenium
                 LocalWebDriver.Value.Manage().Cookies.DeleteAllCookies();
                 SetCookies(_cookies);
             }
-
             return LocalWebDriver.Value;
         }
 

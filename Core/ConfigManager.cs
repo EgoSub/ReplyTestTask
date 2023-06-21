@@ -10,7 +10,6 @@ namespace Core
             .AddJsonFile("appsettings.json")
             .AddJsonFile("appsettings.local.json", true)
             .Build();
-
         private static readonly IConfigurationSection SeleniumConfiguration = Configuration.GetSection("SeleniumConfiguration");
         private static readonly IConfigurationSection UserCredentials = Configuration.GetSection("UserCredentials");
         public static string? BaseUrl => Configuration["BaseUrl"];

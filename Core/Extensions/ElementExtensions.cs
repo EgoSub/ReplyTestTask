@@ -27,9 +27,7 @@ namespace Core.Extensions
         public static void ClickWithJs(this IWebElement element)
         {
             ((IJavaScriptExecutor)driver).ExecuteScript($"arguments[0].style.border='1px solid green'", element);
-
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
         }
-
     }
 }
