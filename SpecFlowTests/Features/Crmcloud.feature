@@ -21,5 +21,5 @@ Scenario: Run report
 Scenario: Remove events from activity log
 	Given navigate to "Reports & Settings" => "Activity Log"
 	When select first 3 items in the table
-	And Make "delete" action
+	And Make "Delete" action
 	Then verify that items were deleted

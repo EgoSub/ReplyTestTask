@@ -29,7 +29,6 @@ namespace Core.Extensions
             ((IJavaScriptExecutor)driver).ExecuteScript($"arguments[0].style.border='1px solid green'", element);
 
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
-            Thread.Sleep(10000);
         }
 
     }

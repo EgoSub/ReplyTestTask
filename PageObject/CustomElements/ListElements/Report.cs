@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace PageObject.CustomElements
+namespace PageObject.CustomElements.ListElements
 {
     public class Report : CustomElement
     {

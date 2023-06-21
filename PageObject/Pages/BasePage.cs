@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using PageObject.CustomElements;
+using PageObject.CustomElements.ListElements;
 using System.Collections.ObjectModel;
 
 namespace PageObject.Pages
@@ -18,8 +19,9 @@ namespace PageObject.Pages
         {
             return new ItemsList<T>(FindElement(By.Id("content-main")));
         }
-
         public Actions Action => new(Driver);
+        public IAlert Allert => Driver.SwitchTo().Alert();
+
         public void RefreshPage() => Driver.Navigate().Refresh();
         public virtual void ReOpen() => Driver.Navigate().GoToUrl(ConfigManager.BaseUrl);
 

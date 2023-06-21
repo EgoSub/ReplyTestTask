@@ -5,6 +5,7 @@ using FluentAssertions.Execution;
 using OpenQA.Selenium;
 using PageObject.CustomElements;
 using PageObject.Pages;
+using System.Globalization;
 
 namespace SpecFlowTests.StepDefinitions
 {
@@ -47,11 +48,9 @@ namespace SpecFlowTests.StepDefinitions
             contactPage.FirstName.SendKeys(contact.FirstName);
             contactPage.LastName.SendKeys(contact.LastName);
             contact.Categories = new();
-            foreach (var row in rows)
-            {
-                contact.Categories.Add(row.Values.First());
-                contactPage.Category.ChooseOption(row.Values.First());
-            }
+            var options = rows.Select(el => el.Values.First()).ToList();
+            contact.Categories = contact.Categories;
+            contactPage.Category.ChooseOptions(options);
             ScenarioContext.Add("contact", contact);
             contactPage.BusinessRole.ChooseOption(contact.BusinessRole.ToString());
             contactPage.Save.Click();
@@ -76,11 +75,11 @@ namespace SpecFlowTests.StepDefinitions
             var contactPage = new ContactsPage();
             using (new AssertionScope())
             {
-                contactPage.ContactDetailForm.FullName.Text.Should().Contain($"{contact.FirstName} {contact.LastName}");
-                contactPage.ContactDetailForm.BusinessRole.Text.Should().Be(contact.BusinessRole.ToString());
+                contactPage.ContactDetailForm.FullName.Text.Should().Contain($"{contact.FirstName} {contact.LastName}", "Contact full name should be matched");
+                contactPage.ContactDetailForm.BusinessRole.Text.Should().Be(contact.BusinessRole.ToString(), "BusinessRole should be matched");
                 foreach (var cat in contact.Categories)
                 {
-                    contactPage.ContactDetailForm.Categories.Text.Should().Contain(cat);
+                    contactPage.ContactDetailForm.Categories.Text.Should().Contain(cat, "Categories should be matched");
                 }
             }
         }
@@ -108,37 +107,49 @@ namespace SpecFlowTests.StepDefinitions
         {
             var reportsPage = new ReportsPage();
             var itemList = reportsPage.DefaultItemsList<CustomElement>();
-
             using (new AssertionScope())
             {
-                itemList.Items.Count.Should().NotBe(0);
-                int.Parse(itemList.SelectedOf.Text).Should().BeGreaterThan(0);
+                itemList.Items.Count.Should().NotBe(0, "Project Profitability items should be present");
+                int.Parse(itemList.SelectedOf.Text).Should().BeGreaterThan(0, "'Selected of' should have count of all items");
             }
         }
 
-        [Given(@"navigate to “Activity log”")]
-        public void GivenNavigateToActivityLog()
-        {
-            throw new PendingStepException();
-        }
-
         [When(@"select first (.*) items in the table")]
-        public void WhenSelectFirstItemsInTheTable(int p0)
+        public void WhenSelectFirstItemsInTheTable(int countOfItems)
         {
-            false.Should().Be(true);
+            var activityLogPage = new ActivityLogPage();
+            ScenarioContext.Add($"activityLogs", new List<string>());
+            ScenarioContext.Add($"selectOfCount", int.Parse(activityLogPage.ActivityLogList.SelectedOf.Text, NumberStyles.AllowThousands));
+            var logList = activityLogPage.ActivityLogList;
+            for (int i = 0; i < countOfItems; i++)
+            {
+                var item = logList.Items[i];
+                ScenarioContext.Get<List<string>>("activityLogs").Add(item.Name.Text);
+                item.CheckBox.Click();
+            }
         }
 
         [When(@"Make ""([^""]*)"" action")]
-        public void WhenMakeAction(string delete)
+        public void WhenMakeAction(string actionOption)
         {
-            throw new PendingStepException();
+            var activityLogPage = new ActivityLogPage();
+            activityLogPage.ActivityLogList.Action.ChooseOption(actionOption);
+            activityLogPage.Allert.Accept();
         }
-
 
         [Then(@"verify that items were deleted")]
         public void ThenVerifyThatItemsWereDeleted()
         {
-            throw new PendingStepException();
+            var activityLogPage = new ActivityLogPage();
+            var itemOnPage = activityLogPage.ActivityLogList.Items.Select(el => el.Name.Text).ToList();
+            var oldCount = ScenarioContext.Get<int>($"selectOfCount");
+            var deletedItems = ScenarioContext.Get<List<string>>("activityLogs");
+
+            using (new AssertionScope())
+            {
+                itemOnPage.Should().NotContain(deletedItems, "Deleted Items should not be on the list");
+                int.Parse(activityLogPage.ActivityLogList.SelectedOf.Text, NumberStyles.AllowThousands).Should().Be(oldCount - deletedItems.Count, "Current count of items should be less the before item were deleted");
+            }
         }
     }
 }

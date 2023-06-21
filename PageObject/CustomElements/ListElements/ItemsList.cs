@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace PageObject.CustomElements
+namespace PageObject.CustomElements.ListElements
 {
 
     public class ItemsList<T> : CustomElement where T : CustomElement
@@ -12,6 +12,6 @@ namespace PageObject.CustomElements
         public IWebElement Filter => element.FindElement(By.Id("filter_text"));
         public IWebElement Create => element.FindElement(By.XPath("//button[@name = 'SubPanel_create']"));
         public IWebElement SelectedOf => element.FindElement(By.XPath("//div[contains(@class, 'header')]//div[contains(text(), 'Selected:')]//span[not(@id)]"));
-
+        public Selector Action => new(element.FindElement(By.XPath("//button[contains(@id, 'ActionButtonHead')]")));
     }
 }

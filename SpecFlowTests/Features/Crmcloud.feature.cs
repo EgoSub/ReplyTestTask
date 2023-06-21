@@ -206,7 +206,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("select first 3 items in the table", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 24
- testRunner.And("Make \"delete\" action", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Make \"Delete\" action", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 25
  testRunner.Then("verify that items were deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

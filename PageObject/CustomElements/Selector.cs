@@ -21,8 +21,15 @@ namespace PageObject.CustomElements
                 .MoveToElement(optElement)
                 .Click(optElement)
                 .Perform();
-            //TODO: Unfortunately nothing works better then sleep here
-            Thread.Sleep(1000);
+        }
+        public void ChooseOptions(List<string> options)
+        {
+            foreach (var opt in options)
+            {
+                ChooseOption(opt);
+                ////TODO: Seems like dd animation time. I tried hard but to get rid of it need more time.
+                Thread.Sleep(500);
+            }
         }
     }
 }
