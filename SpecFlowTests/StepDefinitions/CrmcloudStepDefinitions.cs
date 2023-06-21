@@ -2,10 +2,12 @@ using Core;
 using Core.Extensions;
 using Core.Generators;
 using FluentAssertions.Execution;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using PageObject.CustomElements;
 using PageObject.Pages;
 using System.Globalization;
+[assembly: Parallelizable(ParallelScope.Fixtures)]
 
 namespace SpecFlowTests.StepDefinitions
 {
