@@ -1,4 +1,4 @@
-﻿using InVentry.TestAutomation.UI.Core.Selenium;
+﻿using Core.Selenium;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 

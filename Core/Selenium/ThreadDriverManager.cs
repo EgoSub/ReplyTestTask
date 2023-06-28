@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace InVentry.TestAutomation.UI.Core.Selenium
+namespace Core.Selenium
 {
     public static class ThreadDriverManager
     {

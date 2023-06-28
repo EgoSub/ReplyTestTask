@@ -1,5 +1,5 @@
 ﻿using Core.ApiClient;
-using InVentry.TestAutomation.UI.Core.Selenium;
+using Core.Selenium;
 using PageObject.Pages;
 using SpecFlowBDDAutomationFramework.Utility;
 

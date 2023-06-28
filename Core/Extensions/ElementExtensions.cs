@@ -1,5 +1,5 @@
 ﻿
-using InVentry.TestAutomation.UI.Core.Selenium;
+using Core.Selenium;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
