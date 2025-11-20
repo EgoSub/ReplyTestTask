@@ -2,6 +2,19 @@
 
 ## To start tests it is required to duplicate "appsettings.json", rename it to "appsettings.local.json" and fill in User credentials.
 
+## Additional Documentation
+
+### TypeScript Type Imports Reference
+
+- **[Quick Reference Cheat Sheet](./QUICK_REFERENCE.md)** ⭐ - Start here for quick answers
+- **[TypeScript Type-Only Imports Guide](./TYPESCRIPT_TYPE_IMPORTS.md)** - Comprehensive guide explaining when and why to use the `type` keyword in TypeScript imports
+- **[TypeScript Configuration Comparison](./TYPESCRIPT_CONFIG_COMPARISON.md)** - Side-by-side comparison of different TypeScript configurations and their impact on type imports
+- **[Troubleshooting Guide](./TROUBLESHOOTING.md)** - Solutions to common errors and diagnostic steps
+- **[Examples Directory](./examples/)** - Contains example configurations and code samples:
+  - `tsconfig.example.json` - Example TypeScript configuration with type import settings
+  - `.eslintrc.example.json` - ESLint configuration for enforcing consistent type imports
+  - `typescript-type-imports-examples.ts` - Code examples demonstrating proper usage
+
 ### QA Automation Engineer test task Please, create automated tests for portal https://demo.1crmcloud.com according to the requirements and cases below. Requirements (must have):  Use C# + SpecFlow (https://docs.specflow.org/projects/getting-started/en/latest/index.html)
 
 ### Selenium WebDriver  Please, create a small framework for this task. What we expect to have: o Use page object pattern o Configuration via files o Effective reuse of the code  Follow coding best practices Optional:  Connect any HTML reporter  Login using API (via hook) Test cases

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // Target and Module Settings
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["ESNext", "DOM"],
+    
+    // Output Settings
+    "outDir": "./dist",
+    "sourceMap": true,
+    "declaration": true,
+    
+    // Strict Type Checking
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    
+    // Module System and Import Handling
+    // 
+    // Option 1: For TypeScript 5.0+ (RECOMMENDED)
+    // This is the modern way to handle type-only imports
+    "verbatimModuleSyntax": true,
+    
+    // Option 2: For TypeScript 3.8 - 4.9 (Legacy)
+    // Uncomment if using older TypeScript versions
+    // "importsNotUsedAsValues": "error",
+    // "preserveValueImports": true,
+    
+    // Required for transpilers like Babel, esbuild, SWC
+    "isolatedModules": true,
+    
+    // Additional Strict Checks
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    
+    // Advanced Options
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts"]
+}
