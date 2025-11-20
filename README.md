@@ -6,9 +6,11 @@
 
 ### TypeScript Type Imports Reference
 
-- [TypeScript Type-Only Imports Guide](./TYPESCRIPT_TYPE_IMPORTS.md) - Comprehensive guide explaining when and why to use the `type` keyword in TypeScript imports
-- [TypeScript Configuration Comparison](./TYPESCRIPT_CONFIG_COMPARISON.md) - Side-by-side comparison of different TypeScript configurations and their impact on type imports
-- [Examples Directory](./examples/) - Contains example configurations and code samples:
+- **[Quick Reference Cheat Sheet](./QUICK_REFERENCE.md)** ⭐ - Start here for quick answers
+- **[TypeScript Type-Only Imports Guide](./TYPESCRIPT_TYPE_IMPORTS.md)** - Comprehensive guide explaining when and why to use the `type` keyword in TypeScript imports
+- **[TypeScript Configuration Comparison](./TYPESCRIPT_CONFIG_COMPARISON.md)** - Side-by-side comparison of different TypeScript configurations and their impact on type imports
+- **[Troubleshooting Guide](./TROUBLESHOOTING.md)** - Solutions to common errors and diagnostic steps
+- **[Examples Directory](./examples/)** - Contains example configurations and code samples:
   - `tsconfig.example.json` - Example TypeScript configuration with type import settings
   - `.eslintrc.example.json` - ESLint configuration for enforcing consistent type imports
   - `typescript-type-imports-examples.ts` - Code examples demonstrating proper usage
